@@ -40,15 +40,12 @@ am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 mkinstalldirs = $(install_sh) -d
 CONFIG_CLEAN_FILES =
-LIBRARIES = $(noinst_LIBRARIES)
-ARFLAGS = cru
-libcgats_a_AR = $(AR) $(ARFLAGS)
-libcgats_a_LIBADD =
-am_libcgats_a_OBJECTS = pars.$(OBJEXT) cgats.$(OBJEXT) \
-	parsstd.$(OBJEXT) cgatsstd.$(OBJEXT)
-libcgats_a_OBJECTS = $(am_libcgats_a_OBJECTS)
+LTLIBRARIES = $(noinst_LTLIBRARIES)
+libcgats_la_LIBADD =
+am_libcgats_la_OBJECTS = pars.lo cgats.lo parsstd.lo cgatsstd.lo
+libcgats_la_OBJECTS = $(am_libcgats_la_OBJECTS)
 DEFAULT_INCLUDES = -I.@am__isrc@
-depcomp = $(SHELL) $(top_srcdir)/depcomp
+depcomp = $(SHELL) $(top_srcdir)/scripts/depcomp
 am__depfiles_maybe = depfiles
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -59,8 +56,8 @@ CCLD = $(CC)
 LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
-SOURCES = $(libcgats_a_SOURCES)
-DIST_SOURCES = $(libcgats_a_SOURCES)
+SOURCES = $(libcgats_la_SOURCES)
+DIST_SOURCES = $(libcgats_la_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -179,8 +176,8 @@ target_alias = @target_alias@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 AM_CFLAGS = -Wall -O2 -DUNIX
-noinst_LIBRARIES = libcgats.a
-libcgats_a_SOURCES = pars.c pars.h cgats.c cgats.h parsstd.c cgatsstd.c
+noinst_LTLIBRARIES = libcgats.la
+libcgats_la_SOURCES = pars.c pars.h cgats.c cgats.h parsstd.c cgatsstd.c
 EXTRA_DIST = License.txt Readme.txt
 all: all-am
 
@@ -216,12 +213,16 @@ $(top_srcdir)/configure:  $(am__configure_deps)
 $(ACLOCAL_M4):  $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 
-clean-noinstLIBRARIES:
-	-test -z "$(noinst_LIBRARIES)" || rm -f $(noinst_LIBRARIES)
-libcgats.a: $(libcgats_a_OBJECTS) $(libcgats_a_DEPENDENCIES) 
-	-rm -f libcgats.a
-	$(libcgats_a_AR) libcgats.a $(libcgats_a_OBJECTS) $(libcgats_a_LIBADD)
-	$(RANLIB) libcgats.a
+clean-noinstLTLIBRARIES:
+	-test -z "$(noinst_LTLIBRARIES)" || rm -f $(noinst_LTLIBRARIES)
+	@list='$(noinst_LTLIBRARIES)'; for p in $$list; do \
+	  dir="`echo $$p | sed -e 's|/[^/]*$$||'`"; \
+	  test "$$dir" != "$$p" || dir=.; \
+	  echo "rm -f \"$${dir}/so_locations\""; \
+	  rm -f "$${dir}/so_locations"; \
+	done
+libcgats.la: $(libcgats_la_OBJECTS) $(libcgats_la_DEPENDENCIES) 
+	$(LINK)  $(libcgats_la_OBJECTS) $(libcgats_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -229,10 +230,10 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cgats.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cgatsstd.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pars.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/parsstd.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cgats.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cgatsstd.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pars.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/parsstd.Plo@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -336,7 +337,7 @@ distdir: $(DISTFILES)
 	done
 check-am: all-am
 check: check-am
-all-am: Makefile $(LIBRARIES)
+all-am: Makefile $(LTLIBRARIES)
 installdirs:
 install: install-am
 install-exec: install-exec-am
@@ -364,7 +365,7 @@ maintainer-clean-generic:
 	@echo "it deletes files that may require special tools to rebuild."
 clean: clean-am
 
-clean-am: clean-generic clean-libtool clean-noinstLIBRARIES \
+clean-am: clean-generic clean-libtool clean-noinstLTLIBRARIES \
 	mostlyclean-am
 
 distclean: distclean-am
@@ -424,7 +425,7 @@ uninstall-am:
 .MAKE: install-am install-strip
 
 .PHONY: CTAGS GTAGS all all-am check check-am clean clean-generic \
-	clean-libtool clean-noinstLIBRARIES ctags distclean \
+	clean-libtool clean-noinstLTLIBRARIES ctags distclean \
 	distclean-compile distclean-generic distclean-libtool \
 	distclean-tags distdir dvi dvi-am html html-am info info-am \
 	install install-am install-data install-data-am install-dvi \

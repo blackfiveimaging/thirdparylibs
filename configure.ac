@@ -1,5 +1,7 @@
 AC_INIT([thirdpartylibs], [0.0.1])
+AC_CONFIG_AUX_DIR([scripts])
 AM_INIT_AUTOMAKE([1.9 foreign])
+
 
 AC_PROG_CC
 AC_PROG_INSTALL

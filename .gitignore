@@ -1,0 +1,13 @@
+*.o
+*.Po
+*.Plo
+*.lo
+*.la
+*~
+*Makefile
+*.libs
+config.log
+config.status.lineno
+autom4te.cache
+
+config.status

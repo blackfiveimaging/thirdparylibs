@@ -1,7 +1,7 @@
 AM_CFLAGS = -Wall -O2 -DUNIX
 
-noinst_LIBRARIES = libcgats.a
+noinst_LTLIBRARIES = libcgats.la
 
-libcgats_a_SOURCES = pars.c pars.h cgats.c cgats.h parsstd.c cgatsstd.c
+libcgats_la_SOURCES = pars.c pars.h cgats.c cgats.h parsstd.c cgatsstd.c
 
 EXTRA_DIST = License.txt Readme.txt
