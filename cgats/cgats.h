@@ -80,11 +80,11 @@ struct _cgats {
 	char **others;		/* Other file type identifiers */
 
 	/* Public Methods */
-	int (*set_cgats_type)(struct _cgats *p, char *osym);
+	int (*set_cgats_type)(struct _cgats *p, const char *osym);
 											/* Define the (one) variable CGATS type */
 											/* Return -2, set errc & err on system error */
 
-	int (*add_other)(struct _cgats *p, char *osym);
+	int (*add_other)(struct _cgats *p, const char *osym);
 											/* Add a user defined file identifier string. */
 											/* Use a zero length string for wildcard. */
 											/* Return -2, set errc & err on system error */
@@ -93,13 +93,13 @@ struct _cgats {
 												/* return -ve and errc and err set on error */
 
 	/* NULL if SEPARATE_STD is defined: */ 
-	int (*read_name)(struct _cgats *p, char *filename);	/* Standard file I/O */
+	int (*read_name)(struct _cgats *p, const char *filename);	/* Standard file I/O */
 												/* return -ve and errc and err set on error */
 
-	int (*find_kword)(struct _cgats *p, int table, char *ksym);
+	int (*find_kword)(struct _cgats *p, int table, const char *ksym);
 												/* Return index of the keyword, -1 on fail */
 												/* -2 on illegal table index, errc & err */
-	int (*find_field)(struct _cgats *p, int table, char *fsym);
+	int (*find_field)(struct _cgats *p, int table, const char *fsym);
 												/* Return index of the field, -1 on fail */
 												/* -2 on illegal table index, errc & err */
 
@@ -127,7 +127,7 @@ struct _cgats {
 						/* Fill a suitable set_element with a line of data */
 						/* Return 0 normally, -1, -2, errc & err if error */
 	/* NULL if SEPARATE_STD is defined: */ 
-	int (*write_name)(struct _cgats *p, char *filename);	/* Standard file I/O */
+	int (*write_name)(struct _cgats *p, const char *filename);	/* Standard file I/O */
 										/* return -ve and errc and err set on error */
 
 
@@ -155,8 +155,8 @@ extern cgats *new_cgats_al(cgatsAlloc *al);	/* with allocator object */
 extern cgats *new_cgats(void);							/* Standard allocator */
 
 /* Available from cgatsstd.obj SEPARATE_STD is defined: */ 
-CGATS_STATIC int cgats_read_name(cgats *p, char *filename);
-CGATS_STATIC int cgats_write_name(cgats *p, char *filename);
+CGATS_STATIC int cgats_read_name(cgats *p, const char *filename);
+CGATS_STATIC int cgats_write_name(cgats *p, const char *filename);
 
 #define CGATS_H
 #endif /* CGATS_H */

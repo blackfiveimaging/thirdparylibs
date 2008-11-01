@@ -48,12 +48,12 @@ extern void error(char *fmt, ...), warning(char *fmt, ...);
 #define REAL_SIGDIG 5		/* Number of significant digits in real representation */
 
 static int cgats_read(cgats *p, cgatsFile *fp);
-static int find_kword(cgats *p, int table, char *ksym);
-static int find_field(cgats *p, int table, char *fsym);
+static int find_kword(cgats *p, int table, const char *ksym);
+static int find_field(cgats *p, int table, const char *fsym);
 static int add_table(cgats *p, table_type tt, int oi);
 static int set_table_flags(cgats *p, int table, int sup_id, int sup_kwords, int sup_fields);
-static int set_cgats_type(cgats *p, char *osym);
-static int add_other(cgats *p, char *osym);
+static int set_cgats_type(cgats *p, const char *osym);
+static int add_other(cgats *p, const char *osym);
 static int add_kword(cgats *p, int table, char *ksym, char *kdata, char *kcom);
 static int add_field(cgats *p, int table, char *fsym, data_type ftype);
 static int add_set(cgats *p, int table, ...);
@@ -78,8 +78,8 @@ static data_type guess_type(char *cs);
 static void real_format(double value, int nsd, char *fmt);
 
 #ifdef COMBINED_STD
-static int cgats_read_name(cgats *p, char *filename);
-static int cgats_write_name(cgats *p, char *filename);
+static int cgats_read_name(cgats *p, const char *filename);
+static int cgats_write_name(cgats *p, const char *filename);
 #endif
 
 static char *data_type_desc[] =
@@ -262,7 +262,7 @@ cgats_table_free(cgats_table *t) {
 /* Return index of the keyword, -1 on fail */
 /* -2 on illegal table index, message in err & errc */
 static int
-find_kword(cgats *p, int table, char *ksym) {
+find_kword(cgats *p, int table, const char *ksym) {
 	int i;
 	cgats_table *t;
 
@@ -288,7 +288,7 @@ find_kword(cgats *p, int table, char *ksym) {
 /* Return index of the field, -1 on fail */
 /* -2 on illegal table index, message in err & errc */
 static int
-find_field(cgats *p, int table, char *fsym) {
+find_field(cgats *p, int table, const char *fsym) {
 	int i;
 	cgats_table *t;
 
@@ -701,7 +701,7 @@ cgats_read(cgats *p, cgatsFile *fp) {
 /* Define the (one) variable CGATS type */
 /* Return -2 & set errc and err on system error */
 static int
-set_cgats_type(cgats *p, char *osym) {
+set_cgats_type(cgats *p, const char *osym) {
 	cgatsAlloc *al = p->al;
 
 	p->errc = 0;
@@ -718,7 +718,7 @@ set_cgats_type(cgats *p, char *osym) {
 /* Use a zero length string to indicate a wildcard. */
 /* Return -2 & set errc and err on system error */
 static int
-add_other(cgats *p, char *osym) {
+add_other(cgats *p, const char *osym) {
 	cgatsAlloc *al = p->al;
 
 	p->errc = 0;

@@ -77,7 +77,7 @@ cgats *new_cgats(void) {
 /* and set p->errc * p->err */
 CGATS_STATIC
 int
-cgats_read_name(cgats *p, char *filename) {
+cgats_read_name(cgats *p, const char *filename) {
 	int rv;
 	cgatsFile *fp;
 
@@ -96,7 +96,7 @@ cgats_read_name(cgats *p, char *filename) {
 /* Return -ve, errc & err if there was an error */
 CGATS_STATIC
 int
-cgats_write_name(cgats *p, char *filename) {
+cgats_write_name(cgats *p, const char *filename) {
 	int rv;
 	cgatsFile *fp;
 
