@@ -22,7 +22,7 @@
 #include <string.h>
 
 #ifdef STANDALONE_TEST
-extern void error(char *fmt, ...), warning(char *fmt, ...);
+extern void error(const char *fmt, ...), warning(const char *fmt, ...);
 #endif
 
 #include "pars.h"
@@ -314,7 +314,7 @@ main() {
 
 /* Basic printf type error() and warning() routines for standalone test */
 void
-error(char *fmt, ...) {
+error(const char *fmt, ...) {
 	va_list args;
 
 	fprintf(stderr,"chart: Error - ");
@@ -326,7 +326,7 @@ error(char *fmt, ...) {
 }
 
 void
-warning(char *fmt, ...) {
+warning(const char *fmt, ...) {
 	va_list args;
 
 	fprintf(stderr,"chart: Warning - ");

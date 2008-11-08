@@ -32,7 +32,7 @@
 /* Return the error number */
 /* [Note that this is a duplicate of the one in cgats.c] */
 static int
-err(cgats *p, int errc, char *fmt, ...) {
+err(cgats *p, int errc, const char *fmt, ...) {
 	va_list args;
 
 	p->errc = errc;

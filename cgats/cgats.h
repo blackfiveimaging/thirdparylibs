@@ -20,6 +20,10 @@
 #define CGATSLIB_VERSION 0x020005
 #define CGATSLIB_VERSION_STR "2.05"
 
+#ifdef __cplusplus
+	extern "C" {
+#endif
+
 #include "pars.h"		/* We use the ASCII parsing class */
 
 /* Possible table types */
@@ -110,10 +114,10 @@ struct _cgats {
 	int (*set_table_flags)(struct _cgats *p, int table, int sup_id,int sup_kwords,int sup_fields);
 						/* Set or reset table output suppresion flags */
 						/* Return -ve, set errc & err on error */
-	int (*add_kword)(struct _cgats *p, int table, char *ksym, char *kdata, char *kcom);
+	int (*add_kword)(struct _cgats *p, int table, const char *ksym, const char *kdata, const char *kcom);
 						/* Add a new keyword/value pair + optional comment to the table */
 						/* Return index of new keyword, or -1, errc & err on error */
-	int (*add_field)(struct _cgats *p, int table, char *fsym, data_type ftype);
+	int (*add_field)(struct _cgats *p, int table, const char *fsym, data_type ftype);
 						/* Add a new field to the table */
 						/* Return index of new field, or -1, -2, errc and err on error */
 	int (*add_set)(struct _cgats *p, int table, ...);	/* Add a set of data */
@@ -157,6 +161,10 @@ extern cgats *new_cgats(void);							/* Standard allocator */
 /* Available from cgatsstd.obj SEPARATE_STD is defined: */ 
 CGATS_STATIC int cgats_read_name(cgats *p, const char *filename);
 CGATS_STATIC int cgats_write_name(cgats *p, const char *filename);
+
+#ifdef __cplusplus
+	}
+#endif
 
 #define CGATS_H
 #endif /* CGATS_H */

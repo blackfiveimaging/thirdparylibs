@@ -338,7 +338,7 @@ cgatsAlloc *al		/* heap allocator, NULL for default */
 /* Create cgatsFile given a file name */
 cgatsFile *new_cgatsFileStd_name(
 const char *name,
-char *mode
+const char *mode
 ) {
 	return new_cgatsFileStd_name_a(name, mode, NULL);
 }
@@ -346,7 +346,7 @@ char *mode
 /* Create given a file name and allocator */
 cgatsFile *new_cgatsFileStd_name_a(
 const char *name,
-char *mode,
+const char *mode,
 cgatsAlloc *al			/* heap allocator, NULL for default */
 ) {
 	FILE *fp;

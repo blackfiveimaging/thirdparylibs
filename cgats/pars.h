@@ -132,13 +132,13 @@ struct _cgatsFileStd {
 }; typedef struct _cgatsFileStd cgatsFileStd;
 
 /* Create given a file name */
-cgatsFile *new_cgatsFileStd_name(const char *name, char *mode);
+cgatsFile *new_cgatsFileStd_name(const char *name, const char *mode);
 
 /* Create given a (binary) FILE* */
 cgatsFile *new_cgatsFileStd_fp(FILE *fp);
 
 /* Create given a file name and allocator */
-cgatsFile *new_cgatsFileStd_name_a(const char *name, char *mode, cgatsAlloc *al);
+cgatsFile *new_cgatsFileStd_name_a(const char *name, const char *mode, cgatsAlloc *al);
 
 /* Create given a (binary) FILE* and allocator */
 cgatsFile *new_cgatsFileStd_fp_a(FILE *fp, cgatsAlloc *al);
