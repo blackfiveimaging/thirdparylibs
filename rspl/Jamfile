@@ -1,0 +1,74 @@
+
+# Regular spline library
+
+# Optimization and Debug flags
+
+#PREF_CCFLAGS 	+= $(CCOPTFLAG) ;		# Turn optimisation on
+PREF_CCFLAGS	+= $(CCDEBUGFLAG) ;		# Debugging flags
+#PREF_CCFLAGS 	+= $(CCPROFFLAG) ;		# Profile flags
+#PREF_LINKFLAGS	+= $(LINKPROFFLAG) ;    # Profile flags
+#PREF_CCFLAGS		+= $(CCHEAPDEBUG) ;		# Heap Debugging flags
+PREF_LINKFLAGS	+= $(LINKDEBUGFLAG) ;      # Link with debug info
+
+SCAT = scat ;	# Use thps scattered interpolation library
+
+#Products
+Libraries = librspl ;
+Headers = rspl.h ;
+
+#Install
+#InstallLib ../lib : $(Libraries) ;
+#InstallFile ../h : $(Headers) ;
+
+# Multi-dimensional regular spline library
+Library librspl : rspl.c $(SCAT).c rev.c spline.c opt.c : : : ../h ../numlib ../plot ;
+
+HDRS = ../h ../numlib ../plot $(TIFFINC) ;
+LINKLIBS = librspl ../numlib/libnum ../plot/libplot $(TIFFLIB) ;
+
+# Test programs
+MainsFromSources revbench.c c1.c c1i.c c1df.c t2d.c t2ddf.c t3d.c t3ddf.c tnd.c trnd.c ;
+
+if $(BUILD_TESTS) {
+
+	HDRS = ../h ../numlib ../plot ../icc ../rspl ../xicc ../gamut ../cgats ../spectro $(TIFFINC) ;
+	LINKLIBS = ../spectro/libinsttypes ../xicc/libxicc ../gamut/libgamut librspl
+	           ../cgats/libcgats ../icc/libicc ../plot/libplot ../numlib/libnum $(TIFFLIB) ;
+
+	# Smoothness factor tuning test in Nd.
+	Main smtnd : smtnd.c ;
+
+	# Smoothness factor tuning test in Nd.
+	Main smtmpp : smtmpp.c ;
+
+	HDRS = ;
+	LINKLIBS = ;
+
+	Main sm1 : sm1.c ;
+	Main sm2 : sm2.c ;
+	Main sm3 : sm3.c ;
+}
+
+if $(BUILD_JUNK) {
+
+	HDRS = ../h ../numlib ;
+	LINKLIBS = ..//numlib/libnum ;
+
+	Main t : t.c ;
+
+	#Main temp : temp.c ;
+
+	MainsFromSources prime.c combo.c combo2.c combo3.c combo4.c combo5.c combo9.c ; 
+
+	#Main cache : cache.c ;
+
+	# Nearest point test code
+	Main nptest : nptest.c ;
+
+	# Nearest object test code
+	Main notest : notest.c ;
+
+	#direct mlbs scattered interpolation test
+	Main mlbs_test : mlbs_test.c ;
+}
+

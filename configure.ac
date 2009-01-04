@@ -17,6 +17,8 @@ AC_CHECK_LIB(tiff, TIFFOpen, TIFF_LIBS="-ltiff" , , -lm)
 AC_SUBST([TIFF_LIBS])
 
 AC_CONFIG_FILES([Makefile
-                 cgats/Makefile])
+                 cgats/Makefile
+				 numlib/Makefile
+				 rspl/Makefile])
 AC_OUTPUT
 
