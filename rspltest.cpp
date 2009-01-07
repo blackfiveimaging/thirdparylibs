@@ -32,8 +32,10 @@ int main(int argc,char **argv)
 	double high[MXDI];
 	gres[0]=3000;
 	avgdev[0]=0.0;
-	low[0]=0.0;
-	high[0]=1.0;
+	low[0]=-0.01;
+	high[0]=1.01;
+	low[1]=-0.01;
+	high[1]=1.01;
 
 	myrspl->fit_rspl(myrspl,
 	           0,				/* Non-mon and clip flags */
