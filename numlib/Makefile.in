@@ -41,45 +41,43 @@ ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
-mkinstalldirs = $(install_sh) -d
+mkinstalldirs = $(SHELL) $(top_srcdir)/scripts/mkinstalldirs
+CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
-LIBRARIES = $(noinst_LIBRARIES)
-ARFLAGS = cru
-libargyllnum_a_AR = $(AR) $(ARFLAGS)
-libargyllnum_a_LIBADD =
-am_libargyllnum_a_OBJECTS = numsup.$(OBJEXT) dnsq.$(OBJEXT) \
-	powell.$(OBJEXT) dhsx.$(OBJEXT) ludecomp.$(OBJEXT) \
-	svd.$(OBJEXT) zbrent.$(OBJEXT) rand.$(OBJEXT) sobol.$(OBJEXT)
-libargyllnum_a_OBJECTS = $(am_libargyllnum_a_OBJECTS)
+LTLIBRARIES = $(noinst_LTLIBRARIES)
+libargyllnum_la_LIBADD =
+am_libargyllnum_la_OBJECTS = numsup.lo dnsq.lo powell.lo dhsx.lo \
+	ludecomp.lo svd.lo zbrent.lo rand.lo sobol.lo
+libargyllnum_la_OBJECTS = $(am_libargyllnum_la_OBJECTS)
 LUtest_SOURCES = LUtest.c
 LUtest_OBJECTS = LUtest.$(OBJEXT)
 LUtest_LDADD = $(LDADD)
-LUtest_DEPENDENCIES = ./libargyllnum.a
+LUtest_DEPENDENCIES = ./libargyllnum.la
 dnsqtest_SOURCES = dnsqtest.c
 dnsqtest_OBJECTS = dnsqtest.$(OBJEXT)
 dnsqtest_LDADD = $(LDADD)
-dnsqtest_DEPENDENCIES = ./libargyllnum.a
+dnsqtest_DEPENDENCIES = ./libargyllnum.la
 soboltest_SOURCES = soboltest.c
 soboltest_OBJECTS = soboltest.$(OBJEXT)
 soboltest_LDADD = $(LDADD)
-soboltest_DEPENDENCIES = ./libargyllnum.a
+soboltest_DEPENDENCIES = ./libargyllnum.la
 svdtest_SOURCES = svdtest.c
 svdtest_OBJECTS = svdtest.$(OBJEXT)
 svdtest_LDADD = $(LDADD)
-svdtest_DEPENDENCIES = ./libargyllnum.a
+svdtest_DEPENDENCIES = ./libargyllnum.la
 tdhsx_SOURCES = tdhsx.c
 tdhsx_OBJECTS = tdhsx.$(OBJEXT)
 tdhsx_LDADD = $(LDADD)
-tdhsx_DEPENDENCIES = ./libargyllnum.a
+tdhsx_DEPENDENCIES = ./libargyllnum.la
 tpowell_SOURCES = tpowell.c
 tpowell_OBJECTS = tpowell.$(OBJEXT)
 tpowell_LDADD = $(LDADD)
-tpowell_DEPENDENCIES = ./libargyllnum.a
+tpowell_DEPENDENCIES = ./libargyllnum.la
 zbrenttest_SOURCES = zbrenttest.c
 zbrenttest_OBJECTS = zbrenttest.$(OBJEXT)
 zbrenttest_LDADD = $(LDADD)
-zbrenttest_DEPENDENCIES = ./libargyllnum.a
-DEFAULT_INCLUDES = -I.@am__isrc@
+zbrenttest_DEPENDENCIES = ./libargyllnum.la
+DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/scripts/depcomp
 am__depfiles_maybe = depfiles
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
@@ -91,9 +89,9 @@ CCLD = $(CC)
 LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
-SOURCES = $(libargyllnum_a_SOURCES) LUtest.c dnsqtest.c soboltest.c \
+SOURCES = $(libargyllnum_la_SOURCES) LUtest.c dnsqtest.c soboltest.c \
 	svdtest.c tdhsx.c tpowell.c zbrenttest.c
-DIST_SOURCES = $(libargyllnum_a_SOURCES) LUtest.c dnsqtest.c \
+DIST_SOURCES = $(libargyllnum_la_SOURCES) LUtest.c dnsqtest.c \
 	soboltest.c svdtest.c tdhsx.c tpowell.c zbrenttest.c
 ETAGS = etags
 CTAGS = ctags
@@ -126,20 +124,47 @@ EGREP = @EGREP@
 EXEEXT = @EXEEXT@
 F77 = @F77@
 FFLAGS = @FFLAGS@
+GDKPIXBUF2_CFLAGS = @GDKPIXBUF2_CFLAGS@
+GDKPIXBUF2_LIBS = @GDKPIXBUF2_LIBS@
+GETOPT_LIBS = @GETOPT_LIBS@
+GETTEXT_MACRO_VERSION = @GETTEXT_MACRO_VERSION@
+GLIB2_CFLAGS = @GLIB2_CFLAGS@
+GLIB2_LIBS = @GLIB2_LIBS@
+GMSGFMT = @GMSGFMT@
+GMSGFMT_015 = @GMSGFMT_015@
+GP_CFLAGS = @GP_CFLAGS@
+GP_LIBS = @GP_LIBS@
 GREP = @GREP@
+GTHREAD_CFLAGS = @GTHREAD_CFLAGS@
+GTHREAD_LIBS = @GTHREAD_LIBS@
+GTK2_CFLAGS = @GTK2_CFLAGS@
+GTK2_LIBS = @GTK2_LIBS@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
+INTLLIBS = @INTLLIBS@
+INTL_MACOSX_LIBS = @INTL_MACOSX_LIBS@
+JPEG_LIBS = @JPEG_LIBS@
+LCMS_CFLAGS = @LCMS_CFLAGS@
+LCMS_LIBS = @LCMS_LIBS@
 LDFLAGS = @LDFLAGS@
+LIBICONV = @LIBICONV@
+LIBINTL = @LIBINTL@
+LIBM_LIBS = @LIBM_LIBS@
 LIBOBJS = @LIBOBJS@
 LIBS = @LIBS@
 LIBTOOL = @LIBTOOL@
 LN_S = @LN_S@
+LTLIBICONV = @LTLIBICONV@
+LTLIBINTL = @LTLIBINTL@
 LTLIBOBJS = @LTLIBOBJS@
 MAKEINFO = @MAKEINFO@
 MKDIR_P = @MKDIR_P@
+MSGFMT = @MSGFMT@
+MSGFMT_015 = @MSGFMT_015@
+MSGMERGE = @MSGMERGE@
 NMEDIT = @NMEDIT@
 OBJEXT = @OBJEXT@
 PACKAGE = @PACKAGE@
@@ -149,18 +174,19 @@ PACKAGE_STRING = @PACKAGE_STRING@
 PACKAGE_TARNAME = @PACKAGE_TARNAME@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
+PKG_CONFIG = @PKG_CONFIG@
+POSUB = @POSUB@
 RANLIB = @RANLIB@
 SED = @SED@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
 STRIP = @STRIP@
 TIFF_LIBS = @TIFF_LIBS@
+USE_NLS = @USE_NLS@
 VERSION = @VERSION@
-XMKMF = @XMKMF@
-X_CFLAGS = @X_CFLAGS@
-X_EXTRA_LIBS = @X_EXTRA_LIBS@
-X_LIBS = @X_LIBS@
-X_PRE_LIBS = @X_PRE_LIBS@
+XGETTEXT = @XGETTEXT@
+XGETTEXT_015 = @XGETTEXT_015@
+XGETTEXT_EXTRA_OPTIONS = @XGETTEXT_EXTRA_OPTIONS@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
@@ -213,11 +239,11 @@ target_alias = @target_alias@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 AM_CFLAGS = -Wall -O2 -DUNIX
-noinst_LIBRARIES = libargyllnum.a
-libargyllnum_a_SOURCES = numlib.h numsup.c numsup.h dnsq.c dnsq.h powell.c powell.h \
+noinst_LTLIBRARIES = libargyllnum.la
+libargyllnum_la_SOURCES = numlib.h numsup.c numsup.h dnsq.c dnsq.h powell.c powell.h \
 	dhsx.c dhsx.h ludecomp.c ludecomp.h svd.c svd.h zbrent.c zbrent.h rand.c rand.h sobol.c sobol.h
 
-LDADD = ./libargyllnum.a
+LDADD = ./libargyllnum.la
 EXTRA_DIST = License.txt Readme.txt
 all: all-am
 
@@ -253,12 +279,16 @@ $(top_srcdir)/configure:  $(am__configure_deps)
 $(ACLOCAL_M4):  $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 
-clean-noinstLIBRARIES:
-	-test -z "$(noinst_LIBRARIES)" || rm -f $(noinst_LIBRARIES)
-libargyllnum.a: $(libargyllnum_a_OBJECTS) $(libargyllnum_a_DEPENDENCIES) 
-	-rm -f libargyllnum.a
-	$(libargyllnum_a_AR) libargyllnum.a $(libargyllnum_a_OBJECTS) $(libargyllnum_a_LIBADD)
-	$(RANLIB) libargyllnum.a
+clean-noinstLTLIBRARIES:
+	-test -z "$(noinst_LTLIBRARIES)" || rm -f $(noinst_LTLIBRARIES)
+	@list='$(noinst_LTLIBRARIES)'; for p in $$list; do \
+	  dir="`echo $$p | sed -e 's|/[^/]*$$||'`"; \
+	  test "$$dir" != "$$p" || dir=.; \
+	  echo "rm -f \"$${dir}/so_locations\""; \
+	  rm -f "$${dir}/so_locations"; \
+	done
+libargyllnum.la: $(libargyllnum_la_OBJECTS) $(libargyllnum_la_DEPENDENCIES) 
+	$(LINK)  $(libargyllnum_la_OBJECTS) $(libargyllnum_la_LIBADD) $(LIBS)
 
 clean-checkPROGRAMS:
 	@list='$(check_PROGRAMS)'; for p in $$list; do \
@@ -295,20 +325,20 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/LUtest.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dhsx.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dnsq.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dhsx.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dnsq.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dnsqtest.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ludecomp.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/numsup.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/powell.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rand.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sobol.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ludecomp.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/numsup.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/powell.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rand.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sobol.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/soboltest.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/svd.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/svd.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/svdtest.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tdhsx.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tpowell.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/zbrent.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/zbrent.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/zbrenttest.Po@am__quote@
 
 .c.o:
@@ -414,7 +444,7 @@ distdir: $(DISTFILES)
 check-am: all-am
 	$(MAKE) $(AM_MAKEFLAGS) $(check_PROGRAMS)
 check: check-am
-all-am: Makefile $(LIBRARIES)
+all-am: Makefile $(LTLIBRARIES)
 installdirs:
 install: install-am
 install-exec: install-exec-am
@@ -443,7 +473,7 @@ maintainer-clean-generic:
 clean: clean-am
 
 clean-am: clean-checkPROGRAMS clean-generic clean-libtool \
-	clean-noinstLIBRARIES mostlyclean-am
+	clean-noinstLTLIBRARIES mostlyclean-am
 
 distclean: distclean-am
 	-rm -rf ./$(DEPDIR)
@@ -503,7 +533,7 @@ uninstall-am:
 
 .PHONY: CTAGS GTAGS all all-am check check-am clean \
 	clean-checkPROGRAMS clean-generic clean-libtool \
-	clean-noinstLIBRARIES ctags distclean distclean-compile \
+	clean-noinstLTLIBRARIES ctags distclean distclean-compile \
 	distclean-generic distclean-libtool distclean-tags distdir dvi \
 	dvi-am html html-am info info-am install install-am \
 	install-data install-data-am install-dvi install-dvi-am \

@@ -1,9 +1,7 @@
-AM_CFLAGS = -Wall -O2 -DUNIX -I../h -I../numlib -I../plot
+AM_CFLAGS = -Wall -O2 -DUNIX -I../h -I../numlib
 
-noinst_LIBRARIES = librspl.a
+noinst_LTLIBRARIES = librspl.la
 
-librspl_a_SOURCES = rspl.h rspl_imp.h mlbs.h rspl.c scat.c rev.c rev.h spline.c opt.c
-
-LDADD=./librspl.a ../numlib/libargyllnum.a ../plot/libplot.a $(X_LIBS) $(TIFF_LIBS)
+librspl_la_SOURCES = rspl.h rspl_imp.h mlbs.h rspl.c scat.c rev.c rev.h spline.c opt.c
 
 EXTRA_DIST = License.txt Readme.txt
