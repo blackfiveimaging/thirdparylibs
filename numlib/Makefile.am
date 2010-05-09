@@ -1,4 +1,5 @@
 AM_CFLAGS = -Wall -O2 -DUNIX
+AM_LDFLAGS = -lm
 
 noinst_LTLIBRARIES = libargyllnum.la
 
